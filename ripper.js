@@ -1,4 +1,5 @@
 const fs = require('fs')
+const mkdirp = require('mkdirp');
 
 const lat = process.env.LAT || 40.768437
 const lon = process.env.LON || -73.0107316
@@ -84,8 +85,10 @@ async function updateOTAFile () {
   result = await getChannelList(result)
   return result
 }
-function updateM3UFile () {
-  updateOTAFile().then((result)=>fs.writeFileSync(targetPath, result.m3u))
+async function updateM3UFile () {
+  await mkdirp(targetPath)
+  const { m3u } = await updateOTAFile()
+  await fs.writeFileSync(targetPath, m3u)
 }
 
 module.exports.generate = updateM3UFile
