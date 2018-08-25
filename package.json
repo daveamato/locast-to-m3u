@@ -1,0 +1,19 @@
+{
+  "name": "locast2m3u",
+  "version": "1.0.0",
+  "description": "generate a m3u file from Locast Stream",
+  "main": "ripper.js",
+  "dependencies": {
+    "curl-request": "^1.1.1",
+    "node-libcurl": "^1.3.3"
+  },
+  "devDependencies": {
+    "dotenv": "^6.0.0"
+  },
+  "scripts": {
+    "start": "node -r dotenv/config -e 'setInterval(require(\"./ripper.js\").generate, process.env.UPDATE_FREQ)'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Digioi",
+  "license": "ISC"
+}
