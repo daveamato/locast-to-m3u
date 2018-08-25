@@ -11,7 +11,7 @@
     "dotenv": "^6.0.0"
   },
   "scripts": {
-    "start": "node -r dotenv/config -e 'setInterval(require(\"./ripper.js\").generate, process.env.UPDATE_FREQ)'",
+    "start": "node -r dotenv/config -e 'require(\"./ripper.js\").init()'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Digioi",

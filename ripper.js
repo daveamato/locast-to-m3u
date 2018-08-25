@@ -41,9 +41,9 @@ async function fetchLocastAuthCookie (result) {
       }
     ).post(adminUrl)
     return { cookie: `_member_token=${body.token}; _member_role=1; _member_username=${username}`}
-    } catch  {
-      console.log("Couldn't fetch token");  
-    }
+  } catch (e) {
+    console.log("Couldn't fetch token");  
+  }
 }
 function fetchChannelData(result) {
   return async function (targetChannel){
@@ -85,8 +85,11 @@ async function updateOTAFile () {
   return result
 }
 async function updateM3UFile () {
+  console.log("Fetching M3U From source")
   const { m3u } = await updateOTAFile()
-  await fs.writeFileSync(targetPath, m3u)
+  console.log("Building M3U")
+  fs.writeFileSync(targetPath, m3u)
+  console.log("SYNC COMPLETE")
 }
 
-module.exports.generate = updateM3UFile
+module.exports.init = () => { updateM3UFile(); setInterval(updateM3UFile, updateFreq) }
