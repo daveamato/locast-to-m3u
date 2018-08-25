@@ -1,5 +1,4 @@
 const fs = require('fs')
-const mkdirp = require('mkdirp');
 
 const lat = process.env.LAT || 40.768437
 const lon = process.env.LON || -73.0107316
@@ -86,7 +85,6 @@ async function updateOTAFile () {
   return result
 }
 async function updateM3UFile () {
-  await mkdirp(targetPath)
   const { m3u } = await updateOTAFile()
   await fs.writeFileSync(targetPath, m3u)
 }
