@@ -1,4 +1,4 @@
-from alpine-node:10.9
+from mhart/alpine-node:10.9
 
 RUN apk add --no-cache curl
 RUN mkdir /data
