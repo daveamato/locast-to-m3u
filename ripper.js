@@ -12,19 +12,19 @@ const targetPath = process.env.TARGET_PATH ||"./tv-source.m3u"
 const updateFreq = process.env.UPDATE_FREQ || 86400 // 24 hrs
 const adminUrl = "https://www.locast.org/wp/wp-admin/admin-ajax.php"
 const channelConfig = {
-  WCBS: { zapId: "I2.11331.zap2it.com", channelNumber: 2 },
-  WNBC: { zapId: "I4.11705.zap2it.com", channelNumber: 4 },
-  WNYW: { zapId: "I5.11746.zap2it.com", channelNumber: 5 },
-  WABC: { zapId: "I7.11259.zap2it.com", channelNumber: 7 },
-  WWOR: { zapId: "I9.11760.zap2it.com", channelNumber: 9 },
-  WPIX: { zapId: "I11.11779.zap2it.com", channelNumber: 11 },
-  WNET: { zapId: "I13.11715.zap2it.com", channelNumber: 13 },
-  WLIW: { zapId: "I21.11643.zap2it.com", channelNumber: 21 },
-  WPXN: { zapId: "I3.11743.zap2it.com", channelNumber: 21 },
-  WNJU: { zapId: "I16.11726.zap2it.com", channelNumber: 31 },
-  WLNY: { zapId: "I710.31225.zap2it.com", channelNumber: 55 },
-  WFUT: { zapId: "I1005.35364.zap2it.com", channelNumber: 68 },
-  NYLIFE: { zapId: "I22.11744.zap2it.com", channelNumber: 27 }
+  WCBS: { zapId: "I2.11331.zap2it.com", channelNumber: 2, channelName: "CBS" },
+  WNBC: { zapId: "I4.11705.zap2it.com", channelNumber: 4, channelName: "NBC" },
+  WNYW: { zapId: "I5.11746.zap2it.com", channelNumber: 5, channelName: "FOX" },
+  WABC: { zapId: "I7.11259.zap2it.com", channelNumber: 7, channelName: "ABC" },
+  WWOR: { zapId: "I9.11760.zap2it.com", channelNumber: 9, channelName: "MY9" },
+  WPIX: { zapId: "I11.11779.zap2it.com", channelNumber: 11, channelName: "CW" },
+  WNET: { zapId: "I13.11715.zap2it.com", channelNumber: 13, channelName: "PBS13" },
+  WLIW: { zapId: "I21.11643.zap2it.com", channelNumber: 21, channelName: "PBS21" },
+  WPXN: { zapId: "I3.11743.zap2it.com", channelNumber: 31, channelName: "ION" },
+  WNJU: { zapId: "I16.11726.zap2it.com", channelNumber: 47, channelName: "Telemundo" },
+  WLNY: { zapId: "I710.31225.zap2it.com", channelNumber: 55, channelName: "NY55" },
+  WFUT: { zapId: "I1005.35364.zap2it.com", channelNumber: 68, channelName: "Univision" },
+  NYLIFE: { zapId: "I22.11744.zap2it.com", channelNumber: 27, channelName: "NYLife" }
 }
 
 function mapObj(obj, func){
@@ -81,7 +81,7 @@ function m3u_channelLine (chan) {
     "tvg-id": channelConfig[chan.callSign].zapId,
     "tvg-logo": chan.logoUrl
   }, ([prop, value])=> `${prop}="${value}"`).join(' ')
-  return [`#EXTINF:-1 ${props}`, chan.targetSource].join('\n')
+  return [`#EXTINF:-1 ${props}, #{channelConfig[chan.callSign].channelName}`, chan.targetSource].join('\n')
 }
 function buildM3U(channelList) {
   const channelLineup = channelList
