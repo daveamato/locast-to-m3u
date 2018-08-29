@@ -81,7 +81,7 @@ function m3u_channelLine (chan) {
     "tvg-id": channelConfig[chan.callSign].zapId,
     "tvg-logo": chan.logoUrl
   }, ([prop, value])=> `${prop}="${value}"`).join(' ')
-  return [`#EXTINF:-1 ${props}, #{channelConfig[chan.callSign].channelName}`, chan.targetSource].join('\n')
+  return [`#EXTINF:-1 ${props}, ${channelConfig[chan.callSign].channelNumber} ${channelConfig[chan.callSign].channelName}`, chan.targetSource].join('\n')
 }
 function buildM3U(channelList) {
   const channelLineup = channelList
